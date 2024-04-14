@@ -3,6 +3,7 @@ from fastapi import FastAPI, Response
 from starlette.middleware.cors import CORSMiddleware
 import os
 
+#!!!данные взяты из файла analitika.ipynb
 data_year_user = [
   {"name":"2022Q1","loyl_din":0.0,"pmnts_nmbr_din":0.0,"pmnts_sum_din":0.0,"loyl":100.0,"pmnts_nmbr":11.8021201413,"pmnts_sum":45502.4400212014},
     {"name":"2022Q2","loyl_din":0.0,"pmnts_nmbr_din":-1.2105552456,"pmnts_sum_din":-5.3363159799,"loyl":100.0,"pmnts_nmbr":11.6592489569,"pmnts_sum":43074.2860431154},
@@ -99,22 +100,25 @@ async def read_root():
     return {"Hello": "World"}
 
 @app.post("/model_10_years/")
-async def read_root(user_id : int, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
-    if user_id == 0:
+async def read_root(user_id : str, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
+    model(val1_infl, val2_bez, val3_klst, val4_vvp)
+    if user_id == '0':
         return data_10years
     else:
         return data_10years_user
 
 @app.post("/model_year/")
-async def read_root(user_id : int, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
-    if user_id == 0:
+async def read_root(user_id : str, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
+    model(val1_infl, val2_bez, val3_klst, val4_vvp)
+    if user_id == '0':
         return data_year
     else:
         return data_year_user
 
 @app.post("/model_history_data/")
-async def read_root(user_id : int, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
-    if user_id == 0:
+async def read_root(user_id : str, val1_infl : float, val2_bez : float, val3_klst : float, val4_vvp : float):
+    model(val1_infl, val2_bez, val3_klst, val4_vvp)
+    if user_id == '0':
         return history_data
     else:
         return history_data_user
